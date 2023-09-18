@@ -10,7 +10,7 @@ class _SebhaTabState extends State<SebhaTab> {
   int index = 0;
 
   List<String> tasbeeh = [
-    "سبحان الله",
+    "سبحان الله العظيم",
     "الحمد لله",
     "الله أكبر",
     "لا حول ولا قوة إلا بالله"
