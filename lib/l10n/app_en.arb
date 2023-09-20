@@ -4,5 +4,11 @@
   "quram": "Quran",
   "radio": "Radio",
   "ahadeth": "Ahadeth",
-  "settings": "Settings"
+  "settings": "Settings",
+  "english" : "English",
+  "arabic" : "Arabic",
+  "language" : "Language",
+  "theme" : "Theme",
+  "light" : "Light",
+  "dark" : "Dark"
 }

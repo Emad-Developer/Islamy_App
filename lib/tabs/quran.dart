@@ -4,9 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:practise_fourth_session/suraModel.dart';
 import 'package:practise_fourth_session/sura_details.dart';
 
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
   static const String routName = "QuranTab";
 
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
   List<int> verses = [];
 
   List<String> suraName = [
@@ -137,73 +142,78 @@ class QuranTab extends StatelessWidget {
             "assets/images/quran_image.png",
           ),
         ),
-        Expanded(
-          child: Directionality(
-            textDirection: TextDirection.rtl,
-            child: Container(
-              padding: EdgeInsets.all(18),
-              child: DataTable2(
-                dividerThickness: 2,
-                dataTextStyle: Theme.of(context).textTheme.bodySmall,
-                headingTextStyle: Theme.of(context).textTheme.bodySmall,
-                columnSpacing: 8,
-                horizontalMargin: 8,
-                columns: [
-                  DataColumn2(
-                    label: Text(' رقم السورة'),
-                    size: ColumnSize.L,
-                  ),
-                  DataColumn(
-                    label: Text(
-                      'اسم السورة',
-                    ),
-                  ),
-                  DataColumn2(
-                    label: Text('عدد الآيات'),
-                    size: ColumnSize.S,
-                  ),
-                ],
-                rows: List<DataRow>.generate(
-                  114,
-                  (index) => DataRow(
-                    cells: [
-                      DataCell(
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, SuraDetails.routeName,
-                                arguments:
-                                    SuraModel(suraName[index], index + 1));
-                          },
-                          child: Text("${index + 1}"),
+        verses.isEmpty
+            ? CircularProgressIndicator()
+            : Expanded(
+                child: Directionality(
+                  textDirection: TextDirection.rtl,
+                  child: Container(
+                    padding: EdgeInsets.all(18),
+                    child: DataTable2(
+                      dividerThickness: 2,
+                      dataTextStyle: Theme.of(context).textTheme.bodySmall,
+                      headingTextStyle: Theme.of(context).textTheme.bodySmall,
+                      columnSpacing: 8,
+                      horizontalMargin: 8,
+                      columns: [
+                        DataColumn2(
+                          label: Text(' رقم السورة'),
+                          size: ColumnSize.L,
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'اسم السورة',
+                          ),
+                        ),
+                        DataColumn2(
+                          label: Text('عدد الآيات'),
+                          size: ColumnSize.S,
+                        ),
+                      ],
+                      rows: List<DataRow>.generate(
+                        114,
+                        (index) => DataRow(
+                          cells: [
+                            DataCell(
+                              InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                      context, SuraDetails.routeName,
+                                      arguments: SuraModel(
+                                          suraName[index], index + 1));
+                                },
+                                child: Text("${index + 1}"),
+                              ),
+                            ),
+                            DataCell(InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, SuraDetails.routeName,
+                                    arguments: SuraModel(
+                                        "${suraName[index]}", index + 1));
+                              },
+                              child: Text(
+                                "${suraName[index]}",
+                              ),
+                            )),
+                            DataCell(InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, SuraDetails.routeName,
+                                    arguments: SuraModel(
+                                        "${suraName[index]}", index + 1));
+                              },
+                              child: Text(
+                                "${verses[index]}", //
+                              ),
+                            )),
+                          ],
                         ),
                       ),
-                      DataCell(InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, SuraDetails.routeName,
-                              arguments:
-                                  SuraModel("${suraName[index]}", index + 1));
-                        },
-                        child: Text(
-                          "${suraName[index]}",
-                        ),
-                      )),
-                      DataCell(InkWell(
-                        onTap: () {
-                          Navigator.pushNamed(context, SuraDetails.routeName,
-                              arguments:
-                                  SuraModel("${suraName[index]}", index + 1));
-                        },
-                        child: Text(
-                          "", //${verses[index]}
-                        ),
-                      )),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -214,6 +224,7 @@ class QuranTab extends StatelessWidget {
       List<String> suraLines = sura.split("\n");
       verses.add(suraLines.length);
     }
+    setState(() {});
     print(verses);
   }
 }
